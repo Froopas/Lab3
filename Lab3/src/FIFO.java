@@ -43,30 +43,33 @@ public class FIFO implements Queue {
 
 	public boolean equals(Object f) {
 		if (f.getClass() != this.getClass())
-			throw new ClassCastException(f.toString() + ", " + this.toString());
+			throw new ClassCastException(f.toString() + ", " + this.toString());//Classes isn't equal;
 
 		if (((FIFO) f).size() != this.size())
-			return false;
+			return false;//size isn't equal;
+		boolean returnvalue = true;
 		for (int i = 0; i < this.size(); i++) {
 			if ((this.first() == null && ((FIFO) f).first() != null)
 					|| (this.first() != null && ((FIFO) f).first() == null)) {
-				return false;
+				returnvalue = false;
 			}
 			if (this.first() != null) {
 				if (!(this.first().equals(((FIFO) f).first()))) {
-					return false;
+					returnvalue = false;
 				}
 			}
 			try {
-				this.add(this.first());
+				Object t = this.first();
 				this.removeFirst();
-				((FIFO) f).add(((FIFO) f).first());
+				this.add(t);
+				t = ((FIFO) f).first();
 				((FIFO) f).removeFirst();
+				((FIFO) f).add(t);
 			} catch (NoSuchElementException e) {
-				return false;
+				returnvalue = false;
 			}
 		}
-		return true;
+		return returnvalue;
 	}
 
 	public String toString() {
@@ -75,32 +78,5 @@ public class FIFO implements Queue {
 			output += "(" + String.valueOf(elem) + ") ";
 		}
 		return output;
-	}
-
-	public static void main(String[] args) {
-		FIFO f1 = new FIFO(), f2 = new FIFO();
-		f1.add(new Integer(1));
-		f1.add(new Integer(2));
-		f1.add(new Integer(3));
-		f1.add(new Integer(4));
-		f1.add(null);
-		System.out.println(f1.toString());
-		f2.add(new Integer(1));
-		f2.add(new Integer(2));
-		f2.add(new Integer(3));
-		f2.add(new Integer(4));
-		f2.add(null);
-		System.out.println(f2.toString());
-		System.out.println(f1.equals(f2));
-		f1.removeFirst();
-		f2.removeFirst();
-		System.out.println(f1.toString());
-		System.out.println(f2.toString());
-		System.out.println(f1.equals(f2));
-		f1.add(f2.first());
-		System.out.println(f1.toString());
-		System.out.println(f2.toString());
-		System.out.println(f1.equals(f2));
-		
 	}
 }

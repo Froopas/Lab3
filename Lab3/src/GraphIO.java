@@ -24,7 +24,7 @@ public class GraphIO implements Graph {
 
 	}
 
-	public void readFile(Graph g, String filename) throws IOException {
+	public static void readFile(Graph g, String filename) throws IOException {
 		Path filePath = Paths.get(filename);
 		Scanner scanner;
 		try {
@@ -34,10 +34,10 @@ public class GraphIO implements Graph {
 		}
 		int n=scanner.nextInt();
 		for(int i=1;i<=n;i++) {
-			addNode(scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
+			g.addNode(scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
 		}
 		while(scanner.hasNextInt()) {
-			addEdge(scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
+			g.addEdge(scanner.nextInt(),scanner.nextInt(),scanner.nextInt());
 		}
 		scanner.close();
 
